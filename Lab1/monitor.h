@@ -12,6 +12,7 @@ SC_MODULE(Monitor) {
   sc_in<bool> SN_event;
   sc_in<bool> EW_event;
   sc_in<bool> WE_event;
+  sc_in<int> trafic_queue[4];
   //variabel som säger om det är grönt eller rött
   sc_out<bool> NS_light;
   sc_out<bool> SN_light;

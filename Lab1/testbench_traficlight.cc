@@ -1,5 +1,5 @@
 #include <systemc.h>
-#include "divider.h"
+#include "traficlight.h"
 #include "input_gen.h"
 #include "monitor.h"
 
