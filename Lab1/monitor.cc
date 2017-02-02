@@ -24,41 +24,37 @@ Monitor::~Monitor()
 
 void Monitor::monitor_method()
 {
-
-  bool NS_cars = NS_event->read();
-  bool SN_cars = SN_event->read();
-  bool EW_cars = EW_event->read();
-  bool WE_cars = WE_event->read();
-  if((NS_cars == 1)&&(SN_cars == 0)&&(EW_cars == 0)&&(WE_cars==0)){
+  bool NS_cars_event = NS_event->read();
+  bool SN_cars_event = SN_event->read();
+  bool EW_cars_event = EW_event->read();
+  bool WE_cars_event = WE_event->read();
+  if((NS_cars_event == 1)&&(SN_cars_event == 0)&&(EW_cars_event == 0)&&(WE_cars_event==0)){
     NS_light = 1;
   }
-  else if((NS_cars == 0)&&(SN_cars == 1)&&(EW_cars == 0)&&(WE_cars==0)){
+  else if((NS_cars_event == 0)&&(SN_cars_event == 1)&&(EW_cars_event == 0)&&(WE_cars_event==0)){
     SN_light = 1;
   }
-  else if((NS_cars == 0)&&(SN_cars == 0)&&(EW_cars == 1)&&(WE_cars==0)){
+  else if((NS_cars_event == 0)&&(SN_cars_event == 0)&&(EW_cars_event == 1)&&(WE_cars_event==0)){
     EW_light = 1;
   }
-  else if((NS_cars == 0)&&(SN_cars == 0)&&(EW_cars == 0)&&(WE_cars==1)){
+  else if((NS_cars_event == 0)&&(SN_cars_event == 0)&&(EW_cars_event == 0)&&(WE_cars_event==1)){
     WE_light = 1;
   }
-  else if((NS_cars == 1)&&(SN_cars == 1)&&(EW_cars == 0)&&(WE_cars==0)){
+  else if((NS_cars_event == 1)&&(SN_cars_event == 1)&&(EW_cars_event == 0)&&(WE_cars_event==0)){
     SN_light = 1;
     NS_light = 1;
   }
-  else if((NS_cars == 0)&&(SN_cars == 0)&&(EW_cars == 1)&&(WE_cars==1)){
+  else if((NS_cars_event == 0)&&(SN_cars_event == 0)&&(EW_cars_event == 1)&&(WE_cars_event==1)){
     EW_light = 1;
     WE_light = 1;
   }
   else{
-    
+
   }
 
 
-
-
-
-  *out << "time(" << sc_time_stamp() << ") = " << "NS_ok to drive" << NS_light << "NS_cars detected: " << NS_cars << endl << "SN_ok to drive" << SN_light << "SN_cars detected" << SN_cars << endl
-  << "EW_ok to drive" << EW_light << "EW_cars detected" << EW_cars << endl << "WE_ok to drive" << WE_light << "WE_cars detected" << WE_cars << endl;
+  *out << "time(" << sc_time_stamp() << ") = " << "NS_ok to drive" << NS_light << "NS_cars detected: " << NS_cars_event << endl << "SN_ok to drive" << SN_light << "SN_cars detected" << SN_cars_event << endl
+  << "EW_ok to drive" << EW_light << "EW_cars detected" << EW_cars_event << endl << "WE_ok to drive" << WE_light << "WE_cars detected" << WE_cars_event << endl;
 }
 
 void Monitor::check_constraints_method()

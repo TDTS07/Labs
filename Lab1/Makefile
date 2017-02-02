@@ -1,5 +1,5 @@
 # The final executable
-PROGRAM = divider.x
+PROGRAM = traficlight.x
 
 # The source files (*.cc)
 SRCS = traficlight.cc input_gen.cc monitor.cc testbench_traficlight.cc

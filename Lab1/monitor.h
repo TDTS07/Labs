@@ -19,6 +19,7 @@ SC_MODULE(Monitor) {
   sc_out<bool> EW_light;
   sc_out<bool> WE_light;
 
+
   SC_HAS_PROCESS(Monitor);
   Monitor(sc_module_name name, char *outfile);
   ~Monitor();
