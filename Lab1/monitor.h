@@ -12,20 +12,26 @@ SC_MODULE(Monitor) {
   sc_in<bool> SN_event;
   sc_in<bool> EW_event;
   sc_in<bool> WE_event;
-  sc_in<int> trafic_queue[4];
   //variabel som säger om det är grönt eller rött
-  sc_out<bool> NS_light;
-  sc_out<bool> SN_light;
-  sc_out<bool> EW_light;
-  sc_out<bool> WE_light;
+  sc_out<bool> NS_change;
+  sc_out<bool> SN_change;
+  sc_out<bool> EW_change;
+  sc_out<bool> WE_change;
+
+  sc_event timer;
+  sc_event handle;
+
+  int direction;
+  bool handled;
 
 
   SC_HAS_PROCESS(Monitor);
   Monitor(sc_module_name name, char *outfile);
   ~Monitor();
 
-  void monitor_method();
-  void check_constraints_method();
+  void timer_method();
+  void event_method();
+  void handle_method();
 
   ofstream *out;
 };

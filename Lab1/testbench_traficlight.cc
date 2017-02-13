@@ -21,10 +21,10 @@ int sc_main(int argc, char **argv)
   sc_signal<bool> SN_light_sig;
   sc_signal<bool> EW_light_sig;
   sc_signal<bool> WE_light_sig;
-  sc_signal<int> NS_cars_sig;
-  sc_signal<int> SN_cars_sig;
-  sc_signal<int> EW_cars_sig;
-  sc_signal<int> WE_cars_sig;
+  sc_signal<bool> NS_cars_sig;
+  sc_signal<bool> SN_cars_sig;
+  sc_signal<bool> EW_cars_sig;
+  sc_signal<bool> WE_cars_sig;
   sc_signal<bool> NS_event_sig;
   sc_signal<bool> SN_event_sig;
   sc_signal<bool> EW_event_sig;

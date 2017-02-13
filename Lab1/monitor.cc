@@ -8,13 +8,18 @@ Monitor::Monitor(sc_module_name name, char *outfile)
   out = new ofstream(outfile);
   assert(*out);
 
-  SC_METHOD(monitor_method);
+  SC_METHOD(timer_method);
+  dont_initialize();
+  sensitive << timer;;
+
+  SC_METHOD(event_method);
   dont_initialize();
   sensitive << NS_event << SN_event << EW_event << WE_event;
 
-  SC_METHOD(check_constraints_method);
+  SC_METHOD(handle_method);
   dont_initialize();
-  sensitive << NS_light << SN_light << EW_light << WE_light;
+  sensitive << handle;
+
 }
 
 Monitor::~Monitor()
@@ -22,42 +27,89 @@ Monitor::~Monitor()
   delete out;
 }
 
-void Monitor::monitor_method()
+void Monitor::event_method()
 {
-  bool NS_cars_event = NS_event->read();
-  bool SN_cars_event = SN_event->read();
-  bool EW_cars_event = EW_event->read();
-  bool WE_cars_event = WE_event->read();
-  if((NS_cars_event == 1)&&(SN_cars_event == 0)&&(EW_cars_event == 0)&&(WE_cars_event==0)){
-    NS_light = 1;
+  if(!handled)
+  {
+    if(NS_event.read() || SN_event.read())
+    {
+        direction = 0;
+        handled = 1;
+        handle.notify();
+    }
+    else if(EW_event.read() || WE_event.read())
+    {
+      direction = 1;
+      handled = 1;
+      handle.notify();
+    }
   }
-  else if((NS_cars_event == 0)&&(SN_cars_event == 1)&&(EW_cars_event == 0)&&(WE_cars_event==0)){
-    SN_light = 1;
-  }
-  else if((NS_cars_event == 0)&&(SN_cars_event == 0)&&(EW_cars_event == 1)&&(WE_cars_event==0)){
-    EW_light = 1;
-  }
-  else if((NS_cars_event == 0)&&(SN_cars_event == 0)&&(EW_cars_event == 0)&&(WE_cars_event==1)){
-    WE_light = 1;
-  }
-  else if((NS_cars_event == 1)&&(SN_cars_event == 1)&&(EW_cars_event == 0)&&(WE_cars_event==0)){
-    SN_light = 1;
-    NS_light = 1;
-  }
-  else if((NS_cars_event == 0)&&(SN_cars_event == 0)&&(EW_cars_event == 1)&&(WE_cars_event==1)){
-    EW_light = 1;
-    WE_light = 1;
-  }
-  else{
-
-  }
-
-
-  *out << "time(" << sc_time_stamp() << ") = " << "NS_ok to drive" << NS_light << "NS_cars detected: " << NS_cars_event << endl << "SN_ok to drive" << SN_light << "SN_cars detected" << SN_cars_event << endl
-  << "EW_ok to drive" << EW_light << "EW_cars detected" << EW_cars_event << endl << "WE_ok to drive" << WE_light << "WE_cars detected" << WE_cars_event << endl;
 }
 
-void Monitor::check_constraints_method()
+void Monitor::timer_method()
 {
-  assert((NS_light == 1 && WE_light == 1)||(SN_light == 1 && EW_light == 1)||(NS_light == 1 && EW_light == 1)|| (SN_light == 1 && WE_light==1));
+    handle.notify(15,SC_SEC);
+}
+
+void Monitor::handle_method()
+{
+  if(direction = 1)
+  {
+    if(NS_event.read() = 0 && SN_event.read()!= 0)
+    {
+      direction = 0;
+      NS_change.write(true);
+      SN_change.write(false);
+      EW_change.write(false);
+      WE_change.write(false);
+      timer.notify();
+    }
+    else if(NS_event.read() != 0 && SN_event.read() = 0)
+    {
+      direction = 0;
+      NS_change.write(false);
+      SN_change.write(true);
+      EW_change.write(false);
+      WE_change.write(false);
+      timer.notify();
+    }
+    if(EW_event.read() = 0 && WE_event.read()!= 0)
+    {
+      direction = 1;
+      NS_change.write(false);
+      SN_change.write(false);
+      EW_change.write(false);
+      WE_change.write(true);
+      timer.notify();
+    }
+    if(EW_event.read() != 0 && WE_event.read()= 0)
+    {
+      direction = 1;
+      NS_change.write(false);
+      SN_change.write(false);
+      EW_change.write(true);
+      WE_change.write(false);
+      timer.notify();
+    }
+    if(NS_event.read() != 0 && SN_event.read()!= 0)
+    {
+      direction = 0;
+      NS_change.write(true);
+      SN_change.write(true);
+      EW_change.write(false);
+      WE_change.write(false);
+      timer.notify();
+    }
+    if(EW_event.read() != 0 && WE_event.read()!= 0)
+    {
+      direction = 1;
+      NS_change.write(false);
+      SN_change.write(false);
+      EW_change.write(true);
+      WE_change.write(true);
+      timer.notify();
+    }
+  }
+  else
+  
 }
