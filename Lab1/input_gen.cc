@@ -25,12 +25,29 @@ Generator::~Generator()
 void Generator::generate_thread()
 {
   int NS, SN, EW, WE;
+  bool NS_p = false , SN_p = false, EW_p = false, WE_p = false;
   for (;;) {
-    wait(1, SC_SEC);     // Generate new inputs every second.
-    *in >> NS >> SN >> EW >> WE; // Read from the input file.
-    NS_cars->write(NS);
-    SN_cars->write(SN);
-    EW_cars->write(EW);
-    WE_cars->write(WE);
+    wait(15, SC_SEC);     // Generate new inputs every 15 seconds.
+    *in >> WE >> EW >> SN >> NS; // Read from the input file.
+    if(NS > 0)
+    {
+      NS_p = ~NS_p;
+    }
+    if(SN > 0)
+    {
+      SN_p = ~SN_p;
+    }
+    if(EW > 0)
+    {
+      EW_p = ~EW_p;
+    }
+    if(WE > 0)
+    {
+      WE_p = ~WE_p;
+    }
+    NS_cars->write(NS_p);
+    SN_cars->write(SN_p);
+    EW_cars->write(EW_p);
+    WE_cars->write(WE_p);
   }
 }
