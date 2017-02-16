@@ -4,10 +4,6 @@
 Traficlight::Traficlight(sc_module_name name)
   : sc_module(name)
 {
-  //assert(datafile != 0);       // An input file should be given.
-
-  //in = new ifstream(datafile); // Open the input file.
-  //assert(*in);                 // Check that everything is OK.
 
   light.initialize(false);
   event.initialize(false);
@@ -23,11 +19,7 @@ Traficlight::Traficlight(sc_module_name name)
   sensitive << change_light << new_car;
 
 }
-/*Traficlight::~Traficlight()
-{
-  delete in;
-}
-*/
+
 void Traficlight::sensor_method()
 {
   bool trafic_light = light->read();
