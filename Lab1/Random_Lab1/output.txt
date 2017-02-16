@@ -1,0 +1,10 @@
+Timestamp(0 s) =  NS_driving:0 SN_driving:0 EW_driving:0 WE_driving:0
+Timestamp(20 s) =  NS_driving:1 SN_driving:0 EW_driving:0 WE_driving:0
+Timestamp(40 s) =  NS_driving:0 SN_driving:1 EW_driving:0 WE_driving:0
+Timestamp(60 s) =  NS_driving:1 SN_driving:0 EW_driving:0 WE_driving:0
+Timestamp(80 s) =  NS_driving:0 SN_driving:1 EW_driving:0 WE_driving:0
+Timestamp(100 s) =  NS_driving:1 SN_driving:0 EW_driving:0 WE_driving:0
+Timestamp(120 s) =  NS_driving:0 SN_driving:0 EW_driving:1 WE_driving:1
+Timestamp(140 s) =  NS_driving:1 SN_driving:1 EW_driving:0 WE_driving:0
+Timestamp(160 s) =  NS_driving:0 SN_driving:0 EW_driving:1 WE_driving:1
+Timestamp(180 s) =  NS_driving:1 SN_driving:1 EW_driving:0 WE_driving:0

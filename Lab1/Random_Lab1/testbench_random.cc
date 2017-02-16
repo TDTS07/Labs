@@ -1,6 +1,6 @@
 #include <systemc.h>
 #include "traficlight.h"
-#include "input_gen.h"
+#include "input_gen_random.h"
 #include "monitor.h"
 
 int sc_main(int argc, char **argv)
@@ -10,11 +10,10 @@ int sc_main(int argc, char **argv)
   // 2. Number of time-checks
   //3. the file with input data (see input.txt), and
   // 4. the file to write output data.
-  assert(argc == 4);
+  assert(argc == 3);
 
   sc_time sim_time(atof(argv[1]), SC_SEC);
-  char *infile = argv[2];
-  char *outfile = argv[3];
+  char *outfile = argv[2];
 
   // Create channels.
   sc_signal<bool> NS_light_sig;
@@ -38,7 +37,7 @@ int sc_main(int argc, char **argv)
   Traficlight lightSN("TraficlightSN");
   Traficlight lightEW("TraficlightEW");
   Traficlight lightWE("TraficlightWE");
-  Generator gen("Generator", infile);
+  Generator gen("Generator");
   Monitor monitor("Monitor", outfile);
 
   // Connect the channels to the ports.

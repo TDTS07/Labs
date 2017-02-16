@@ -1,10 +1,7 @@
-#ifndef INPUT_GEN_H
-#define INPUT_GEN_H
+#ifndef INPUT_GEN_RANDOM_H
+#define INPUT_GEN_RANDOM_H
 
 #include <systemc.h>
-#include <fstream>
-
-using std::ifstream;
 
 SC_MODULE(Generator) {
   sc_out<bool> NS_cars;
@@ -13,12 +10,11 @@ SC_MODULE(Generator) {
   sc_out<bool> WE_cars;
 
   SC_HAS_PROCESS(Generator);
-  Generator(sc_module_name name, char *datafile);
-  ~Generator();
+  Generator(sc_module_name name);
+
 
   void generate_thread();
 
-  ifstream *in;
 };
 
 #endif // INPUT_GEN_H
