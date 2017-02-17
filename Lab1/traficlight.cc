@@ -4,11 +4,8 @@
 Traficlight::Traficlight(sc_module_name name)
   : sc_module(name)
 {
-  //assert(datafile != 0);       // An input file should be given.
 
-  //in = new ifstream(datafile); // Open the input file.
-  //assert(*in);                 // Check that everything is OK.
-
+  //initialize all lights to red and no cars at the signal
   light.initialize(false);
   event.initialize(false);
 
@@ -23,30 +20,29 @@ Traficlight::Traficlight(sc_module_name name)
   sensitive << change_light << new_car;
 
 }
-/*Traficlight::~Traficlight()
-{
-  delete in;
-}
-*/
+
 void Traficlight::sensor_method()
 {
   bool trafic_light = light->read();
   bool new_trafic = cars->read();
 
+  //if the light is green, no notification needs to be sent to the controller
   if(trafic_light)
   {
     outgoing_event = false;
   }
+  //else the read cars from input file and wait for response from controller
   else if(!outgoing_event && !trafic_light)
   {
     outgoing_event = new_trafic;
     new_car.notify();
   }
-
+  //send request to controller
   event->write(outgoing_event);
 
 }
 
+//if car wants to go and gets ok from controller, turn the light green
 void Traficlight::on_off_method()
 {
   bool ack_in = change_light->read();

@@ -7,12 +7,12 @@
 using std::ofstream;
 
 SC_MODULE(Monitor) {
-  //variabel som säger att det finns bil/bilar som vill åka
+  //variables that tells where there is cars that wants to go
   sc_in<bool> NS_event;
   sc_in<bool> SN_event;
   sc_in<bool> EW_event;
   sc_in<bool> WE_event;
-  //variabel som säger om det är grönt eller rött
+  //variables to send back whether the light should be green or red
   sc_out<bool> NS_change;
   sc_out<bool> SN_change;
   sc_out<bool> EW_change;

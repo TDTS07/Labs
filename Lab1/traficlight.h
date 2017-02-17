@@ -15,10 +15,8 @@ SC_MODULE(Traficlight) {
 
   bool outgoing_event;
 
-
   SC_HAS_PROCESS(Traficlight);
   Traficlight(sc_module_name name);
-  //~Traficlight();
 
   void sensor_method();
   void on_off_method();

@@ -11,6 +11,7 @@ Generator::Generator(sc_module_name name, char *datafile)
 
   SC_THREAD(generate_thread);
 
+  //initialize that there is no cars
   NS_cars.initialize(0);
   SN_cars.initialize(0);
   EW_cars.initialize(0);
@@ -26,22 +27,21 @@ void Generator::generate_thread()
 {
   int NS, SN, EW, WE;
   for (;;){
-    wait(15, SC_SEC);     // Generate new inputs every 15 seconds.
+    wait(15, SC_SEC); // Generate new inputs every 15 seconds.
     *in >> NS >> SN >> EW >> WE; // Read from the input file.
 
-    if(!in->eof())
-    {
+  if(!in->eof())  //if end of file is not reached, send further
+  {
     NS_cars->write(NS);
     SN_cars->write(SN);
     EW_cars->write(EW);
     WE_cars->write(WE);
-    }
-    else
-    {
+  }
+  else  //else set all variables to zero
+  {
     NS_cars->write(0);
     SN_cars->write(0);
     EW_cars->write(0);
     WE_cars->write(0);
-    }
   }
 }

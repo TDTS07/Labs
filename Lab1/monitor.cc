@@ -8,6 +8,7 @@ Monitor::Monitor(sc_module_name name, char *outfile)
   out = new ofstream(outfile);
   assert(*out);
 
+  //initialize values of variables
   handled = 0;
   direction = 0;
 
@@ -33,6 +34,7 @@ Monitor::~Monitor()
 void Monitor::event_method()
 {
   std::cout << "Handled: " << handled << "\n";
+  //if event not handled, determine which direction the car wants to go
   if(!handled)
   {
     if(NS_event.read() || SN_event.read())
@@ -51,6 +53,7 @@ void Monitor::event_method()
   }
 }
 
+//timer function to restart the logic
 void Monitor::timer_method()
 {
     handle.notify(20,SC_SEC);
@@ -58,11 +61,11 @@ void Monitor::timer_method()
 
 void Monitor::handle_method()
 {
+  //logic to set the lights depending on which cars wants to go
   if(direction == 1)
   {
     if(NS_event.read() == 0 && SN_event.read() != 0)
     {
-
       NS_change.write(false);
       SN_change.write(true);
       EW_change.write(false);
@@ -191,6 +194,8 @@ void Monitor::handle_method()
     }
     std::cout << "Direction at the end: " << direction << "\n" ;
   }
+
+  //writes out which cars are driving
   *out << "Timestamp(" << sc_time_stamp() << ") = " << " NS_driving:" << NS_change.read() << " SN_driving:" << SN_change.read() <<
   " EW_driving:" << EW_change.read() << " WE_driving:" << WE_change.read() << endl;
 
