@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>//Insert declarations of global clocks, variables, constants and channels.
+c = 0;
+</declaration><template><name x="5" y="5">P</name><declaration>//Insert local declarations of clocks, variables and constants.
+</declaration><location id="id0" x="272" y="112"><name x="280" y="80">s0</name></location><location id="id1" x="272" y="240"><name x="288" y="216">s1</name></location><location id="id2" x="272" y="368"><name x="288" y="360">s3</name></location><location id="id3" x="144" y="240"><name x="152" y="208">s4</name></location><location id="id4" x="400" y="240"><name x="416" y="216">s2</name></location><init ref="id0"/><transition><source ref="id0"/><target ref="id1"/></transition><transition><source ref="id1"/><target ref="id4"/></transition><transition><source ref="id0"/><target ref="id4"/></transition><transition><source ref="id1"/><target ref="id2"/></transition><transition><source ref="id2"/><target ref="id3"/></transition><transition><source ref="id3"/><target ref="id1"/></transition><transition><source ref="id4"/><target ref="id2"/></transition></template><system>//Insert process assignments.
+
+//Edit system definition.
+system P;</system></nta>
