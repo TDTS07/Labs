@@ -33,7 +33,6 @@ Monitor::~Monitor()
 
 void Monitor::event_method()
 {
-  std::cout << "Handled: " << handled << "\n";
   //if event not handled, determine which direction the car wants to go
   if(!handled)
   {
@@ -49,7 +48,6 @@ void Monitor::event_method()
         handled = 1;
         handle.notify();
     }
-    std::cout << "Direction at event handler: " << direction << "\n";
   }
 }
 
