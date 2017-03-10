@@ -28,5 +28,10 @@ A<> EW.wait imply EW.driving
 /*
 
 */
+A<> (NS.wait imply NS.driving) and (WE.wait imply WE.driving)
+
+/*
+
+*/
 A[] not deadlock\
 
