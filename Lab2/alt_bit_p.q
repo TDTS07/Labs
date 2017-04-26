@@ -3,4 +3,10 @@
 /*
 
 */
-//NO_QUERY
+Sender.Wait0 imply Reciever.Mode1
+
+/*
+
+*/
+A[] not deadlock\
+
